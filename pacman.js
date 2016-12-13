@@ -1,4 +1,4 @@
-var pacman = new Phaser.Game(800, 500, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create });
+var pacman = new Phaser.Game(540, 528, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create });
 
 function preload() {
 
@@ -12,7 +12,7 @@ var p;
 
 function create() {
 
-    pacman.stage.backgroundColor = '#787878';
+    pacman.stage.backgroundColor = '#CCCCCC';
 
     //  The 'mario' key here is the Loader key given in game.load.tilemap
     map = pacman.add.tilemap('fondo');
