@@ -2,7 +2,7 @@ var pacman = new Phaser.Game(540, 528, Phaser.CANVAS, 'phaser-example', { preloa
 
 function preload() {
 
-    pacman.load.tilemap('fondo', 'public/Pacman2.json', null, Phaser.Tilemap.TILED_JSON);
+    pacman.load.tilemap('fondo', 'public/Pacman.json', null, Phaser.Tilemap.TILED_JSON);
     pacman.load.image('tiles', 'public/pacManTiles.png');
     pacman.load.spritesheet('cc', 'public/ChomperSprites16x16.png', 16, 16, 14*4);
 }
@@ -21,16 +21,14 @@ var rightKey;
 
 function create() {
 
-    pacman.stage.backgroundColor = '#CCCCCC';
-    
-    
-    //  The 'mario' key here is the Loader key given in game.load.tilemap
+    pacman.stage.backgroundColor = '#000000';
     map = pacman.add.tilemap('fondo');
 
     //  The first parameter is the tileset name, as specified in the Tiled map editor (and in the tilemap json file)
     //  The second parameter maps this name to the Phaser.Cache key 'tiles'
     map.addTilesetImage('pacManTiles', 'tiles');
-    map.setCollisionBetween(1,420);
+    map.setCollisionBetween(1,401);
+    map.setCollisionBetween(403,420);
     
     //  Creates a layer from the World1 layer in the map data.
     //  A Layer is effectively like a Phaser.Sprite, so is added to the display list.
@@ -63,43 +61,41 @@ function create() {
 
 function update(){
     pacman.physics.arcade.collide(player, layer);
-
-    //player.body.velocity.x = 0;
-    //player.body.velocity.y = 0;
         if (leftKey.isDown) {
             //  Move to the left
-            player.body.velocity.y = 0;
+            //player.body.velocity.y = 0;
             player.body.velocity.x = -100;
             player.animations.play('left');
         }
         else if (rightKey.isDown)
         {
             //  Move to the right
-            player.body.velocity.y = 0;
+            //player.body.velocity.y = 0;
             player.body.velocity.x = 100;
             player.animations.play('right');
         }
         else if (upKey.isDown)
         {
             //  Move to the right
-            player.body.velocity.x = 0;
+            //player.body.velocity.x = 0;
             player.body.velocity.y = -100;
             player.animations.play('up');
         }
         else if (downKey.isDown)
         {
             //  Move to the right
-            player.body.velocity.x = 0;
+            //player.body.velocity.x = 0;
             player.body.velocity.y = 100;
             player.animations.play('down');
         }
         player.set
-        
 }
 
 /*function render() {
 
-    pacman.debug.body(player);
+    pacman.debug.text('left: ' + player.body.touching.left, 32, 32);
+    pacman.debug.text('right: ' + player.body.touching.right, 256, 32);
+    pacman.debug.text('up: ' + player.body.touching.up, 32, 64);
+    pacman.debug.text('down: ' + player.body.touching.down, 256, 64);
 
 }*/
-
