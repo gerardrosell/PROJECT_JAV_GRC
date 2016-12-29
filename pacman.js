@@ -30,7 +30,7 @@ function create() {
     //  The first parameter is the tileset name, as specified in the Tiled map editor (and in the tilemap json file)
     //  The second parameter maps this name to the Phaser.Cache key 'tiles'
     map.addTilesetImage('pacManTiles', 'tiles');
-    map.setCollisionBetween(0,12);
+    map.setCollisionBetween(1,420);
     
     //  Creates a layer from the World1 layer in the map data.
     //  A Layer is effectively like a Phaser.Sprite, so is added to the display list.
