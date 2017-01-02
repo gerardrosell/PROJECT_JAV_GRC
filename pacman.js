@@ -65,6 +65,7 @@ function create() {
         }
         
     }
+    pacman.physics.arcade.enable(dot);
 
     upKey = pacman.input.keyboard.addKey(Phaser.Keyboard.UP);
     downKey = pacman.input.keyboard.addKey(Phaser.Keyboard.DOWN);
@@ -75,6 +76,8 @@ function create() {
 
 function update(){
     pacman.physics.arcade.collide(player, layer);
+    pacman.physics.arcade.overlap(player, dot, eatDot, null, this);
+
 
     if (leftKey.isDown) {
         //  Move to the left
@@ -105,6 +108,12 @@ function update(){
     }
 
     player.set
+}
+
+function eatDot(pacman, dot) {
+
+    dot.kill();
+
 }
 
 /*function render() {
