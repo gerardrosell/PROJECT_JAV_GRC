@@ -212,3 +212,7 @@ $( document).ready(function(){
 function resetJoc(){
 	new reset1();
 }
+
+function final(){
+	joc_acabat=true;
+}
