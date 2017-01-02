@@ -1,4 +1,4 @@
-var pacman = new Phaser.Game(540, 528, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render:render });
+var pacman = new Phaser.Game(480, 528, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update/*, render:render */});
 
 function preload() {
 
@@ -116,12 +116,8 @@ function eatDot(pacman, dot) {
 
     dot.kill();
     points+=15;
+    document.getElementById("marcador").innerHTML="Score: "+points;
 
 }
 
-function render() {
 
-    pacman.debug.text("Points: " + points, 25*16, 12*16);
-    pacman.debug.text("Lives: " + lives, 25*16, 13*16);
-
-}
