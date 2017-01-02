@@ -1,8 +1,8 @@
-var pacman = new Phaser.Game(540, 528, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update/*, render:render*/ });
+var pacman = new Phaser.Game(540, 528, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render:render });
 
 function preload() {
 
-    pacman.load.tilemap('fondo', 'public/Pacman.json', null, Phaser.Tilemap.TILED_JSON);
+    pacman.load.tilemap('fondo', 'public/Pacman2.json', null, Phaser.Tilemap.TILED_JSON);
     pacman.load.image('tiles', 'public/pacManTiles.png');
     pacman.load.image('dot_image', 'public/dot.png');
     pacman.load.spritesheet('cc', 'public/ChomperSprites16x16.png', 16, 16, 14*4);
@@ -15,6 +15,8 @@ var p;
 var player;
 var posx=10;
 var posy=15;
+var points=0;
+var lives=3;
 
 var upKey;
 var downKey;
@@ -113,14 +115,13 @@ function update(){
 function eatDot(pacman, dot) {
 
     dot.kill();
+    points+=15;
 
 }
 
-/*function render() {
+function render() {
 
-    pacman.debug.text('left: ' + player.body.touching.left, 32, 32);
-    pacman.debug.text('right: ' + player.body.touching.right, 256, 32);
-    pacman.debug.text('up: ' + player.body.touching.up, 32, 64);
-    pacman.debug.text('down: ' + player.body.touching.down, 256, 64);
+    pacman.debug.text("Points: " + points, 25*16, 12*16);
+    pacman.debug.text("Lives: " + lives, 25*16, 13*16);
 
-}*/
+}
