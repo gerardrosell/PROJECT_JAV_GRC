@@ -1,12 +1,63 @@
-var pacman = new Phaser.Game(480, 528, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, changeDir: changeDir, updateDir: updateDir, updateDirx: updateDirx, updateDiry: updateDiry/*, render:render */});
+function iniciaposicions(){
+    //afegeix sprite a la posició 0,0 amb la imatge cc
+    player = pacman.add.sprite(posx*16,posy*16, 'cc');
+    ghost1 = pacman.add.sprite(15*16,15*16, 'cc');
+    ghost2 = pacman.add.sprite(16*16,15*16, 'cc');
+    ghost3 = pacman.add.sprite(14*16,15*16, 'cc');
+    ghost4 = pacman.add.sprite(16*16,16*16, 'cc');
+    ghost5 = pacman.add.sprite(14*16,16*16, 'cc');
 
-function preload() {
+    pacman.physics.arcade.enable(player);
+    pacman.physics.arcade.enable(ghost1);
+    pacman.physics.arcade.enable(ghost2);
+    pacman.physics.arcade.enable(ghost3);
+    pacman.physics.arcade.enable(ghost4);
+    pacman.physics.arcade.enable(ghost5);
 
-    pacman.load.tilemap('fondo', 'public/Pacman2.json', null, Phaser.Tilemap.TILED_JSON);
-    pacman.load.image('tiles', 'public/pacManTiles.png');
-    pacman.load.image('dot_image', 'public/dot.png');
-    pacman.load.image('dot_invisible', 'public/dot_black.png');
-    pacman.load.spritesheet('cc', 'public/ChomperSprites16x16.png', 16, 16, 14*4);
+    //  ajusta la mida de colisió del player a 16x16
+    player.body.setSize(16, 16, 0, 0);
+    ghost1.body.setSize(16, 16, 0, 0);
+    ghost2.body.setSize(16, 16, 0, 0);
+    ghost3.body.setSize(16, 16, 0, 0);
+    ghost4.body.setSize(16, 16, 0, 0);
+    ghost5.body.setSize(16, 16, 0, 0);
+
+    player.animations.add('left', [39, 38], 10, true);
+    player.animations.add('right', [11,10], 10, true);
+    player.animations.add('up', [53,52], 10, true);
+    player.animations.add('down', [25,24], 10, true);
+
+    ghost1.animations.add('left', [31, 30], 10, true);
+    ghost1.animations.add('right', [3,2], 10, true);
+    ghost1.animations.add('up', [45,44], 10, true);
+    ghost1.animations.add('down', [17,16], 10, true);
+
+    ghost2.animations.add('left', [29, 28], 10, true);
+    ghost2.animations.add('right', [1,0], 10, true);
+    ghost2.animations.add('up', [43,42], 10, true);
+    ghost2.animations.add('down', [15,14], 10, true);
+
+    ghost3.animations.add('left', [33, 32], 10, true);
+    ghost3.animations.add('right', [5,4], 10, true);
+    ghost3.animations.add('up', [47,46], 10, true);
+    ghost3.animations.add('down', [19,18], 10, true);
+
+    ghost4.animations.add('left', [35, 34], 10, true);
+    ghost4.animations.add('right', [7,6], 10, true);
+    ghost4.animations.add('up', [49,48], 10, true);
+    ghost4.animations.add('down', [21,20], 10, true);
+
+    ghost5.animations.add('left', [37, 36], 10, true);
+    ghost5.animations.add('right', [9,8], 10, true);
+    ghost5.animations.add('up', [51,50], 10, true);
+    ghost5.animations.add('down', [22,21], 10, true);
+
+    //inicialitza moviment fantasma 1
+    ghost1.body.velocity.x = 100;
+    ghost2.body.velocity.x = 100;
+    ghost3.body.velocity.x = 100;
+    ghost4.body.velocity.x = 100;
+    ghost5.body.velocity.x = 100;
 }
 
 var dots=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -25,6 +76,19 @@ var lives=3;
 var increment=15;
 var movement=0;
 var movement_g1=0;
+
+var pacman = new Phaser.Game(480, 528, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, changeDir: changeDir, updateDir: updateDir, updateDirx: updateDirx, updateDiry: updateDiry/*, render:render */});
+
+function preload() {
+
+    pacman.load.tilemap('fondo', 'public/Pacman2.json', null, Phaser.Tilemap.TILED_JSON);
+    pacman.load.image('tiles', 'public/pacManTiles.png');
+    pacman.load.image('dot_image', 'public/dot.png');
+    pacman.load.image('dot_invisible', 'public/dot_black.png');
+    pacman.load.spritesheet('cc', 'public/ChomperSprites16x16.png', 16, 16, 14*4);
+}
+
+
 
 var upKey;
 var downKey;
@@ -110,45 +174,35 @@ function create() {
     }
     pacman.physics.arcade.enable(directiony);
 
-    //afegeix sprite a la posició 0,0 amb la imatge cc
-    player = pacman.add.sprite(posx*16,posy*16, 'cc');
-    ghost1 = pacman.add.sprite(15*16,15*16, 'cc');
-
-    pacman.physics.arcade.enable(player);
-    pacman.physics.arcade.enable(ghost1);
-
-    //  ajusta la mida de colisió del player a 16x16
-    player.body.setSize(16, 16, 0, 0);
-    ghost1.body.setSize(16, 16, 0, 0);
-
-    player.animations.add('left', [39, 38], 10, true);
-    player.animations.add('right', [11,10], 10, true);
-    player.animations.add('up', [53,52], 10, true);
-    player.animations.add('down', [25,24], 10, true);
-
-    ghost1.animations.add('left', [31, 30], 10, true);
-    ghost1.animations.add('right', [3,2], 10, true);
-    ghost1.animations.add('up', [45,44], 10, true);
-    ghost1.animations.add('down', [17,16], 10, true);
+    iniciaposicions();
 
     upKey = pacman.input.keyboard.addKey(Phaser.Keyboard.UP);
     downKey = pacman.input.keyboard.addKey(Phaser.Keyboard.DOWN);
     leftKey = pacman.input.keyboard.addKey(Phaser.Keyboard.LEFT);
     rightKey = pacman.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-
-    //inicialitza moviment fantasma 1
-    ghost1.body.velocity.x = 100;
-    
 }
 
 function update(){
     pacman.physics.arcade.collide(player, layer);
     pacman.physics.arcade.collide(ghost1, layer);
+    pacman.physics.arcade.collide(ghost2, layer);
+    pacman.physics.arcade.collide(ghost3, layer);
+    pacman.physics.arcade.collide(ghost4, layer);
+    pacman.physics.arcade.collide(ghost5, layer);
+    pacman.physics.arcade.overlap(player, ghost1, diePlayer, null, this);
+    pacman.physics.arcade.overlap(player, ghost2, diePlayer, null, this);
+    pacman.physics.arcade.overlap(player, ghost3, diePlayer, null, this);
+    pacman.physics.arcade.overlap(player, ghost4, diePlayer, null, this);
+    pacman.physics.arcade.overlap(player, ghost5, diePlayer, null, this);
     pacman.physics.arcade.overlap(player, dot, eatDot, null, this);
     pacman.physics.arcade.overlap(player, direction, updateDir, null, this);
     pacman.physics.arcade.overlap(player, directionx, updateDirx, null, this);
     pacman.physics.arcade.overlap(player, directiony, updateDiry, null, this);
     pacman.physics.arcade.overlap(ghost1, direction, changeDir, null, this);
+    pacman.physics.arcade.overlap(ghost2, direction, changeDir, null, this);
+    pacman.physics.arcade.overlap(ghost3, direction, changeDir, null, this);
+    pacman.physics.arcade.overlap(ghost4, direction, changeDir, null, this);
+    pacman.physics.arcade.overlap(ghost5, direction, changeDir, null, this);
 
 
     if (leftKey.isDown) {
@@ -170,6 +224,8 @@ function update(){
     player.set
 }
 
+
+
 function eatDot(pacman, dot) {
 
     dot.kill();
@@ -180,43 +236,65 @@ function eatDot(pacman, dot) {
     {
         //acaba el joc
         final();
-        lives--;
-        document.getElementById("vides").innerHTML="Lives: "+lives;
+        destroy();
+        document.getElementById("result").innerHTML="WIN!";
     }
 
 }
 
-function changeDir(ghost1, direction){
+function destroy(){
+    player.kill();
+    ghost1.kill();
+    ghost2.kill();
+    ghost3.kill();
+    ghost4.kill();
+    ghost5.kill();
+}
+
+function diePlayer(pacman, ghost){
+    destroy();
+    lives--;
+    document.getElementById("vides").innerHTML="Lives: "+lives;
+    iniciaposicions();
+    if(lives==0){
+        final();
+        destroy();
+        dot.destroy();
+        document.getElementById("result").innerHTML="GAME OVER";
+    }
+}
+
+function changeDir(ghost, direction){
     movement_g1++;
     if (movement_g1==0) {
         //  Move to the left
         //player.body.velocity.y = 0;
-        ghost1.body.velocity.x = -100;
-        ghost1.animations.play('left');
+        ghost.body.velocity.x = -100;
+        ghost.animations.play('left');
     }
     else if (movement_g1==1)
     {
         //  Move to the right
         //player.body.velocity.y = 0;
-        ghost1.body.velocity.x = 100;
-        ghost1.animations.play('right');
+        ghost.body.velocity.x = 100;
+        ghost.animations.play('right');
     }
     else if (movement_g1==2)
     {
         //  Move to the right
         //player.body.velocity.x = 0;
-        ghost1.body.velocity.y = -100;
-        ghost1.animations.play('up');
+        ghost.body.velocity.y = -100;
+        ghost.animations.play('up');
     }
     else if (movement_g1==3)
     {
         //  Move to the right
         //player.body.velocity.x = 0;
-        ghost1.body.velocity.y = 100;
-        ghost1.animations.play('down');
+        ghost.body.velocity.y = 100;
+        ghost.animations.play('down');
     }
 
-    ghost1.set
+    ghost.set
     if(movement_g1==3){
         movement_g1=0;
     }
@@ -289,5 +367,14 @@ function updateDiry(player, direction){
 
     player.set
 }
+
+ /*function distanceSq(ghost1,player) {
+
+    var xDif = ghost1.x - player.x;
+    var yDif = ghost1.y - player.y;
+
+    return (xDif * xDif) + (yDif * yDif);
+
+}; */
 
 
