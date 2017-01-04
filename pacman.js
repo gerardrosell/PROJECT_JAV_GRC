@@ -337,7 +337,7 @@ function diePlayer(pacman, ghost){
         ghost.kill();  
         points+=increment*2;
         document.getElementById("marcador").innerHTML=points;  
-        eval("create"+ghost+"();");
+        //eval("create"+ghost+"();");
     }
 }
 
