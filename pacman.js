@@ -1,18 +1,13 @@
 function iniciaposicions(){
     //afegeix sprite a la posició 0,0 amb la imatge cc
     player = pacman.add.sprite(posx*16,posy*16, 'cc');
-    ghost1 = pacman.add.sprite(15*16,15*16, 'cc');
-    ghost2 = pacman.add.sprite(16*16,15*16, 'cc');
-    ghost3 = pacman.add.sprite(14*16,15*16, 'cc');
-    ghost4 = pacman.add.sprite(16*16,16*16, 'cc');
-    ghost5 = pacman.add.sprite(14*16,16*16, 'cc');
+    createghost1();
+    createghost2();
+    createghost3();
+    createghost4();
+    createghost5();
 
     pacman.physics.arcade.enable(player);
-    pacman.physics.arcade.enable(ghost1);
-    pacman.physics.arcade.enable(ghost2);
-    pacman.physics.arcade.enable(ghost3);
-    pacman.physics.arcade.enable(ghost4);
-    pacman.physics.arcade.enable(ghost5);
 
     //  ajusta la mida de colisió del player a 16x16
     player.body.setSize(16, 16, 0, 0);
@@ -27,23 +22,6 @@ function iniciaposicions(){
     player.animations.add('up', [53,52], 10, true);
     player.animations.add('down', [25,24], 10, true);
 
-    createghost1();
-    createghost2();
-    createghost3();
-    createghost4();
-    createghost5();
-
-    ghost1.animations.add('blue', [13,12,27,26], 10, true);
-    //ghost1.animations.add('white', [17,16], 10, true);
-    ghost2.animations.add('blue', [13,12,27,26], 10, true);
-    //ghost2.animations.add('white', [17,16], 10, true);
-    ghost3.animations.add('blue', [13,12,27,26], 10, true);
-    //ghost3.animations.add('white', [17,16], 10, true);
-    ghost4.animations.add('blue', [13,12,27,26], 10, true);
-    //ghost4.animations.add('white', [17,16], 10, true);
-    ghost5.animations.add('blue', [13,12,27,26], 10, true);
-    //ghost5.animations.add('white', [17,16], 10, true);
-
     //inicialitza moviment fantasma 1
     ghost1.body.velocity.x = 100;
     ghost2.body.velocity.x = 100;
@@ -53,34 +31,49 @@ function iniciaposicions(){
 }
 
 function createghost1(){
+    ghost1 = pacman.add.sprite(15*16,15*16, 'cc');
+    pacman.physics.arcade.enable(ghost1);
     ghost1.animations.add('left', [31, 30], 10, true);
     ghost1.animations.add('right', [3,2], 10, true);
     ghost1.animations.add('up', [45,44], 10, true);
-    ghost1.animations.add('down', [17,16], 10, true);}
+    ghost1.animations.add('down', [17,16], 10, true);
+    ghost1.animations.add('blue', [13,12,27,26], 10, true);}
     
 function createghost2(){
+    ghost2 = pacman.add.sprite(16*16,15*16, 'cc');
+    pacman.physics.arcade.enable(ghost2);
     ghost2.animations.add('left', [29, 28], 10, true);
     ghost2.animations.add('right', [1,0], 10, true);
     ghost2.animations.add('up', [43,42], 10, true);
-    ghost2.animations.add('down', [15,14], 10, true);}
+    ghost2.animations.add('down', [15,14], 10, true);
+    ghost2.animations.add('blue', [13,12,27,26], 10, true);}
 
 function createghost3(){
+    ghost3 = pacman.add.sprite(14*16,15*16, 'cc');
+    pacman.physics.arcade.enable(ghost3);
     ghost3.animations.add('left', [33, 32], 10, true);
     ghost3.animations.add('right', [5,4], 10, true);
     ghost3.animations.add('up', [47,46], 10, true);
-    ghost3.animations.add('down', [19,18], 10, true);}
+    ghost3.animations.add('down', [19,18], 10, true);
+    ghost3.animations.add('blue', [13,12,27,26], 10, true);}
 
 function createghost4(){
+    ghost4 = pacman.add.sprite(16*16,16*16, 'cc');
+    pacman.physics.arcade.enable(ghost4);
     ghost4.animations.add('left', [35, 34], 10, true);
     ghost4.animations.add('right', [7,6], 10, true);
     ghost4.animations.add('up', [49,48], 10, true);
-    ghost4.animations.add('down', [21,20], 10, true);}
+    ghost4.animations.add('down', [21,20], 10, true);
+    ghost4.animations.add('blue', [13,12,27,26], 10, true);}
 
 function createghost5(){
+    ghost5 = pacman.add.sprite(14*16,16*16, 'cc');
+    pacman.physics.arcade.enable(ghost5);
     ghost5.animations.add('left', [37, 36], 10, true);
     ghost5.animations.add('right', [9,8], 10, true);
     ghost5.animations.add('up', [51,50], 10, true);
-    ghost5.animations.add('down', [22,21], 10, true);}
+    ghost5.animations.add('down', [22,21], 10, true);
+    ghost5.animations.add('blue', [13,12,27,26], 10, true);}
 
 
 var dots=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -335,10 +328,13 @@ function diePlayer(pacman, ghost){
             document.getElementById("result").innerHTML="GAME OVER";
         }
     } else{
-        ghost.kill();  
+        //OJO, el mou al centre, no el kill y create
+        //ghost.x=16*16;
+        //ghost.y=16*16;
+        ghost.reset(16*16,16*16);
+        //ghost.kill();  
         points+=increment*2;
-        document.getElementById("marcador").innerHTML=points;  
-        //createghost1();
+        document.getElementById("marcador").innerHTML=points;
     }
 }
 
