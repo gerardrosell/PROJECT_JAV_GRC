@@ -34,15 +34,15 @@ function iniciaposicions(){
     createghost5();
 
     ghost1.animations.add('blue', [13,12,27,26], 10, true);
-    ghost1.animations.add('white', [17,16], 10, true);
+    //ghost1.animations.add('white', [17,16], 10, true);
     ghost2.animations.add('blue', [13,12,27,26], 10, true);
-    ghost2.animations.add('white', [17,16], 10, true);
+    //ghost2.animations.add('white', [17,16], 10, true);
     ghost3.animations.add('blue', [13,12,27,26], 10, true);
-    ghost3.animations.add('white', [17,16], 10, true);
+    //ghost3.animations.add('white', [17,16], 10, true);
     ghost4.animations.add('blue', [13,12,27,26], 10, true);
-    ghost4.animations.add('white', [17,16], 10, true);
+    //ghost4.animations.add('white', [17,16], 10, true);
     ghost5.animations.add('blue', [13,12,27,26], 10, true);
-    ghost5.animations.add('white', [17,16], 10, true);
+    //ghost5.animations.add('white', [17,16], 10, true);
 
     //inicialitza moviment fantasma 1
     ghost1.body.velocity.x = 100;
@@ -331,13 +331,14 @@ function diePlayer(pacman, ghost){
             final();
             destroy();
             dot.destroy();
+            dot_important.destroy();
             document.getElementById("result").innerHTML="GAME OVER";
         }
     } else{
         ghost.kill();  
         points+=increment*2;
         document.getElementById("marcador").innerHTML=points;  
-        //eval("create"+ghost+"();");
+        //createghost1();
     }
 }
 
