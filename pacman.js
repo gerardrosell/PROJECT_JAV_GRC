@@ -328,7 +328,7 @@ function eatDotImp(pacman, dot) {
     dots_recollits++;
 
     //si no queden cocos hauria de restar una vida
-    if (points==(260*increment))
+    if (dots_recollits==260)
     {
         //acaba el joc
         final();
