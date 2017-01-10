@@ -372,6 +372,8 @@ function diePlayer(pacman, ghost){
 }
 
 function changeDir(ghost, direction){
+
+    
     //===============================================================
     //Aquí hauria de calcular la nova direcció del fantasma assignant un valor entre 0 i 3 a movement_g1 sent esquerra, dreta, amunt i avall respectivament (0,1,2,3)
     //ghost.previousPosition() hauria de donar la posició del ghost un frame abans per dir que no pot tornar allà i decidir cap a on anar.
