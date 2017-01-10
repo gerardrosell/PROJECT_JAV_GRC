@@ -472,7 +472,7 @@ function changeDir(ghost, direction){
         //  Move to the left
         //player.body.velocity.y = 0;
         ghost.body.velocity.x = -100;
-        ghost.body.velocity.y = 0;
+        //ghost.body.velocity.y = 0;
         if(!vulnerable){
             ghost.animations.play('left');
         }
@@ -485,7 +485,7 @@ function changeDir(ghost, direction){
         //  Move to the right
         //player.body.velocity.y = 0;
         ghost.body.velocity.x = 100;
-        ghost.body.velocity.y = 0;
+        //ghost.body.velocity.y = 0;
         if(!vulnerable){
             ghost.animations.play('right');
         }
@@ -498,7 +498,7 @@ function changeDir(ghost, direction){
         //  Move to the right
         //player.body.velocity.x = 0;
         ghost.body.velocity.y = -100;
-        ghost.body.velocity.x = 0;
+        //ghost.body.velocity.x = 0;
         if(!vulnerable){
             ghost.animations.play('up');
         }
@@ -511,7 +511,7 @@ function changeDir(ghost, direction){
         //  Move to the right
         //player.body.velocity.x = 0;
         ghost.body.velocity.y = 100;
-        ghost.body.velocity.x = 0;
+        //ghost.body.velocity.x = 0;
         if(!vulnerable){
             ghost.animations.play('down');
         }
