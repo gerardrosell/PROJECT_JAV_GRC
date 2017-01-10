@@ -103,7 +103,7 @@ var dist1=100;
 var dist2=100;
 var dist3=100;
 var dist4=100;
-var pacman = new Phaser.Game(480, 528, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, changeDir: changeDir, updateDir: updateDir, updateDirx: updateDirx, updateDiry: updateDiry/*, render:render*/ });
+var pacman = new Phaser.Game(480, 528, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, changeDir: changeDir, updateDir: updateDir, updateDirx: updateDirx, updateDiry: updateDiry, render:render });
 
 function preload() {
 
@@ -113,6 +113,7 @@ function preload() {
     pacman.load.image('dot_image2', 'public/dot_red.png');
     pacman.load.image('dot_invisible', 'public/dot_black.png');
     pacman.load.spritesheet('cc', 'public/ChomperSprites16x16.png', 16, 16, 14*4);
+    pacman.load.audio('sfx', ['public/eat.mp3','public/eat.ogg']);
 }
 
 
@@ -123,6 +124,8 @@ var leftKey;
 var rightKey;
 
 function create() {
+
+    fx = pacman.add.audio('sfx');
 
     pacman.stage.backgroundColor = '#000000';
     map = pacman.add.tilemap('fondo');
@@ -234,7 +237,7 @@ function update(){
     pacman.physics.arcade.collide(ghost4, layer);
     pacman.physics.arcade.collide(ghost5, layer);
 
-    /*pacman.physics.arcade.collide(ghost1, ghost2);
+    pacman.physics.arcade.collide(ghost1, ghost2);
     pacman.physics.arcade.collide(ghost1, ghost3);
     pacman.physics.arcade.collide(ghost1, ghost4);
     pacman.physics.arcade.collide(ghost1, ghost5);
@@ -253,7 +256,7 @@ function update(){
     pacman.physics.arcade.collide(ghost5, ghost1);
     pacman.physics.arcade.collide(ghost5, ghost2);
     pacman.physics.arcade.collide(ghost5, ghost3);
-    pacman.physics.arcade.collide(ghost5, ghost4);*/
+    pacman.physics.arcade.collide(ghost5, ghost4);
 
     pacman.physics.arcade.overlap(player, ghost1, diePlayer, null, this);
     pacman.physics.arcade.overlap(player, ghost2, diePlayer, null, this);
@@ -295,6 +298,7 @@ function update(){
 
 
 function eatDot(pacman, dot) {
+    fx.play();
 
     dot.kill();
     points+=increment;
@@ -312,6 +316,7 @@ function eatDot(pacman, dot) {
 }
 
 function eatDotImp(pacman, dot) {
+    fx.play();
 
     dot.kill();
     points+=increment;
@@ -598,10 +603,12 @@ function updateDiry(player, direction){
     player.set
 }
 
-/*function render(){
+function render(){
     //pacman.debug.text(prevPosx+"  "+prevPosy , 10*16, 13*16);
+    //pacman.debug.body(player);
+    //game.debug.body(sprite2);
 
-}*/
+}
 
  function distance(ghostx, ghosty ,player) {
 
